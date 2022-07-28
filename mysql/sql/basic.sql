@@ -32,3 +32,20 @@ ALTER TABLE member2 MODIFY COLUMN nickname varchar(100);
 -- 컬럼 이름 변경
 ALTER TABLE member2 CHANGE COLUMN nickname nick varchar(45);
 
+-- 컬럼 삭제
+ALTER TABLE member2 DROP COLUMN nick;
+
+-- row 삭제
+DELETE FROM member2 WHERE seq=2; 
+
+DELETE FROM user WHERE seq=11;
+
+-- Commit / Rollback
+
+-- 내용 수정
+UPDATE member2 SET
+	name = "Haneul",
+	id = "Himmel"
+WHERE seq=1;
+
+SELECT * FROM member2;
