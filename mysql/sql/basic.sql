@@ -49,3 +49,28 @@ UPDATE member2 SET
 WHERE seq=1;
 
 SELECT * FROM member2;
+
+-- UPDATE & DELETE 제한 조건 푸는 법
+-- Edit -> Preference -> SQL Editor -> 최하단 체크 해제
+
+SELECT * FROM user
+WHERE 1=1
+	-- AND name like "이%"
+    -- AND name like "%이"
+    -- AND name like "%이%"
+    AND password like "%s%"
+;
+
+SELECT * FROM user
+WHERE 1=1
+-- 	AND gender = 1
+    -- AND gender > 1 
+    -- AND gender >= 1
+	AND gender between 1 and 2 
+;
+
+SELECT * FROM user
+WHERE 1=1
+	AND job = ''
+--     AND job = null
+;
