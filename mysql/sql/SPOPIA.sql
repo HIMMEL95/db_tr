@@ -83,3 +83,21 @@ inner join article_comment c on b.user_seq = a.seq
 inner join gameScore d on d.user_seq = a.seq
 inner join gameScore_comment e on c.user_seq = a.seq
 ;
+
+-- 회원 목록
+select
+	a.seq,
+    b.ccName,
+    a.name,
+    c.ccName,
+    a.id,
+    a.tel,
+    a.email,
+    a.dob,
+    a.address,
+    a.addressDetail
+from user a
+left join CC b on b.seq = a.user_div
+left join CC c on c.seq = a.gender
+left join teamUser d on a.seq = d.team_seq
+;

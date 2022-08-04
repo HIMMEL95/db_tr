@@ -25,7 +25,7 @@ ALTER TABLE member2
 
 ALTER TABLE member2
 	ADD COLUMN tel varchar(45) AFTER pwd;
-    
+
 -- 컬럼 변경
 ALTER TABLE member2 MODIFY COLUMN nickname varchar(100);
 
@@ -33,12 +33,12 @@ ALTER TABLE member2 MODIFY COLUMN nickname varchar(100);
 ALTER TABLE member2 CHANGE COLUMN nickname nick varchar(45);
 
 -- 컬럼 삭제
-ALTER TABLE member2 DROP COLUMN nick;
+ALTER TABLE user DROP COLUMN CC_seq;
 
 -- row 삭제
 DELETE FROM member2 WHERE seq=2; 
 
-DELETE FROM user WHERE seq=11;
+DELETE FROM member2 WHERE seq=11;
 
 -- Commit / Rollback
 
