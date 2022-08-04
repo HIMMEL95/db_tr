@@ -60,5 +60,26 @@ inner join gameScore b on b.user_seq = a.seq
 ;
 
 -- 기록 Comment 목록
+select
+	b.id,
+	a.comment,
+    a.createdAt,
+    a.modifiedAt
+from gameScore_comment a
+inner join user b on b.seq = a.user_seq
+;
 
 -- comment 목록
+select 
+	a.id,
+    b.title,
+    c.comment,
+    d.home,
+    h.away,
+    e.comment
+from user a
+inner join article b on b.user_seq = a.seq
+inner join article_comment c on b.user_seq = a.seq
+inner join gameScore d on d.user_seq = a.seq
+inner join gameScore_comment e on c.user_seq = a.seq
+;
