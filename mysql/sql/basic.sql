@@ -74,3 +74,30 @@ WHERE 1=1
 	AND job = ''
 --     AND job = null
 ;
+
+
+CREATE TABLE IF NOT EXISTS `football`.`comment` (
+  `seq` INT NOT NULL AUTO_INCREMENT,
+  `comment` VARCHAR(45) NULL,
+  `createdAt` DATETIME NULL,
+  `createdBy` VARCHAR(45) NULL,
+  `modifiedAt` DATETIME NULL,
+  `modifiedBy` VARCHAR(45) NULL,
+  `user_seq` INT NULL,
+  `gameScoreTest_seq` INT NULL,
+  `articleTest_seq` INT NULL,
+  PRIMARY KEY (`seq`),
+  INDEX `fk_comment_gameScoreTest1_idx` (`gameScoreTest_seq` ASC) VISIBLE,
+  INDEX `fk_comment_articleTest1_idx` (`articleTest_seq` ASC) VISIBLE,
+  CONSTRAINT `fk_comment_gameScoreTest1`
+    FOREIGN KEY (`gameScoreTest_seq`)
+    REFERENCES `football`.`gameScoreTest` (`seq`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comment_articleTest1`
+    FOREIGN KEY (`articleTest_seq`)
+    REFERENCES `football`.`articleTest` (`seq`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+;

@@ -16,87 +16,82 @@ WHERE id="himmel" and password="12312"
 
 -- 기사 목록
 select 
-	a.seq,
-	a.name,
-    b.title,
-    b.content,
-    b.newspaper,
-    b.createdAt,
-    b.modifiedAt
-from user a
-inner join article b on b.user_seq = a.seq
+	b.seq,
+    a.title,
+    a.newspaper,
+    b.name,
+    c.ccName,
+    a.createdAt,
+    a.modifiedAt
+from article a
+inner join user b on b.seq = a.user_seq
+inner join CC c on c.seq = a.event
 ;
 
 -- 기사 comment 목록
 select 
-	b.title,
 	a.comment,
+    b.id,
     a.createdAt,
     a.modifiedAt
 from article_comment a 
-left join article b on b.seq = a.article_seq
+inner join user b on b.seq = a.user_seq
 ;
 
 -- 기록 목록
 select
 	a.seq,
-    a.id,
-    b.home,
-    b.away,
-    b.homeScore,
-    b.awayScore,
-    b.event,
-    b.league,
-    b.gameDate,
-    b.gameDuration,
-    b.stadium,
-    b.createdAt,
-    b.modifiedAt
-from user a 
-inner join gameScore b on b.user_seq = a.seq
+    a.event,
+    a.league,
+    b1.teamName as homeTeam,
+	b2.teamName as awyaTeam,
+    a.homeScore,
+    a.awayScore,
+    a.stadium,
+    a.gameDate,
+    a.gameDuration,
+    a.createdAt,
+    a.modifiedAt
+from gameScore a 
+inner join team b1 on b1.seq = a.home_team
+inner join team b2 on b2.seq = a.away_team
 ;
 
 -- 기록 Comment 목록
 select
-	b.id,
 	a.comment,
+    b.id,
     a.createdAt,
     a.modifiedAt
 from gameScore_comment a
 inner join user b on b.seq = a.user_seq
 ;
 
--- comment 목록
-select 
-    a.title,
-    b.comment as article_comment
-from article a
-inner join article_comment b on b.article_seq = a.seq
-;
-
-select 
-	a.id,
-    b.title,
-    c.comment
-from user a
--- inner join article b on b.user_seq = a.seq
-inner join comment c on c.user_seq = a.seq
-;
-
 -- 회원 목록
 select
 	a.seq,
-    b.ccName,
+    c1.ccName,
     a.name,
-    c.ccName,
+    c2.ccName,s
     a.id,
     a.tel,
     a.email,
     a.dob,
     a.address,
-    a.addressDetail
+    a.addressDetail,
+    u.team_seq
 from user a
-left join CC b on b.seq = a.user_div
-inner join CC c on c.seq = a.gender
-left join teamUser d on a.seq = d.team_seq
+inner join teamUser u on u.user_seq = a.seq
+inner join CC c1 on c1.seq = a.user_div
+inner join CC c2 on c2.seq = a.gender
+
+;
+
+-- 팀 목록
+select
+	a.seq,
+    b.leagueName,
+    b.teamName
+from teamUser a
+inner join team b on b.seq = a.team_seq
 ;
