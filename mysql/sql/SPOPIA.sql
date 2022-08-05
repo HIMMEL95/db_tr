@@ -16,9 +16,8 @@ WHERE id="himmel" and password="12312"
 
 -- 기사 목록
 select 
+	a.seq,
 	a.name,
-    a.id,
-    a.email,
     b.title,
     b.content,
     b.newspaper,
@@ -30,14 +29,12 @@ inner join article b on b.user_seq = a.seq
 
 -- 기사 comment 목록
 select 
-	c.title,
-    b.id,
+	b.title,
 	a.comment,
     a.createdAt,
     a.modifiedAt
 from article_comment a 
-inner join user b on b.seq = a.user_seq
-left join article c on c.seq = a.article_seq
+left join article b on b.seq = a.article_seq
 ;
 
 -- 기록 목록
@@ -71,19 +68,15 @@ inner join user b on b.seq = a.user_seq
 
 -- comment 목록
 select 
-	a.id,
-    b.title,
-    c.comment as article_comment,
-    e.comment as gameScore_comment
-from user a
-inner join article b on b.user_seq = a.seq
-inner join article_comment c on b.user_seq = a.seq
-inner join gameScore_comment e on c.user_seq = a.seq
+    a.title,
+    b.comment as article_comment
+from article a
+inner join article_comment b on b.article_seq = a.seq
 ;
 
 select 
 	a.id,
-    -- b.title,
+    b.title,
     c.comment
 from user a
 -- inner join article b on b.user_seq = a.seq
@@ -104,6 +97,6 @@ select
     a.addressDetail
 from user a
 left join CC b on b.seq = a.user_div
-left join CC c on c.seq = a.gender
+inner join CC c on c.seq = a.gender
 left join teamUser d on a.seq = d.team_seq
 ;
