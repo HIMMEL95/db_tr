@@ -73,15 +73,21 @@ inner join user b on b.seq = a.user_seq
 select 
 	a.id,
     b.title,
-    c.comment,
-    d.home,
-    h.away,
-    e.comment
+    c.comment as article_comment,
+    e.comment as gameScore_comment
 from user a
 inner join article b on b.user_seq = a.seq
 inner join article_comment c on b.user_seq = a.seq
-inner join gameScore d on d.user_seq = a.seq
 inner join gameScore_comment e on c.user_seq = a.seq
+;
+
+select 
+	a.id,
+    -- b.title,
+    c.comment
+from user a
+-- inner join article b on b.user_seq = a.seq
+inner join comment c on c.user_seq = a.seq
 ;
 
 -- 회원 목록
