@@ -72,19 +72,19 @@ select
 	a.seq,
     c1.ccName,
     a.name,
-    c2.ccName,s
+    c2.ccName,
     a.id,
     a.tel,
     a.email,
     a.dob,
     a.address,
     a.addressDetail,
-    u.team_seq
+    t.teamName
 from user a
 inner join teamUser u on u.user_seq = a.seq
 inner join CC c1 on c1.seq = a.user_div
 inner join CC c2 on c2.seq = a.gender
-
+inner join team t on t.seq = u.team_seq
 ;
 
 -- 팀 목록
