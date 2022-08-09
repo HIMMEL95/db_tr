@@ -1,6 +1,5 @@
 use football;
 
-
 -- 공통코드
 select 
 	a.seq,
@@ -46,11 +45,13 @@ inner join team t on t.event = a.event
 
 -- 기록상세
 select
-	t1.teamName,
-    t2.teamName,
-    gs.gameDate,
+	gs.gameDate,
     gs.gameDuration,
-	gs.stadium
+	gs.stadium,
+    gs.away_player,
+    gs.home_player,
+	t1.teamName,
+    t2.teamName
 from gameScore gs
 inner join team t1 on t1.seq = gs.away_team
 inner join team t2 on t2.seq = gs.home_team
@@ -63,11 +64,16 @@ select count(seq) from gameScore_comment;
 select 
 	u.id,
 	gsc.comment,
-    sysdate(),
-    gsc.createdAt,
-    minute(now() - gsc.createdAt)
-from gameScore_comment gsc
-inner join user u on u.seq = gsc.user_seq
+CASE
+	WHEN TIMESTAMPDIFF(MINUTE, STR_TO_DATE(gsc.createdAt, '%Y-%m-%d %H:%i:%s') , NOW()) <= 0 THEN '방금 전'
+    WHEN TIMESTAMPDIFF(MINUTE, STR_TO_DATE(gsc.createdAt, '%Y-%m-%d %H:%i:%s'), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, STR_TO_DATE(gsc.createdAt, '%Y-%m-%d %H:%i:%s'), NOW()), '분 전')
+    WHEN TIMESTAMPDIFF(HOUR, STR_TO_DATE(gsc.createdAt, '%Y-%m-%d %H:%i:%s') , NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, STR_TO_DATE(gsc.createdAt, '%Y-%m-%d %H:%i:%s'), NOW()), '시간 전')
+    WHEN TIMESTAMPDIFF(DAY, STR_TO_DATE(gsc.createdAt, '%Y-%m-%d %H:%i:%s') , NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, STR_TO_DATE(gsc.createdAt, '%Y-%m-%d %H:%i:%s'), NOW()), '일 전')
+    ELSE CONCAT(TIMESTAMPDIFF(MONTH, gsc.createdAt, NOW()), '달 전')
+END AS AGOTIME
+FROM gameScore_comment gsc
+inner join user u on u.seq = gsc.createdBy
+where gsc.seq = 3
 ;
 
 -- 기사상세
@@ -77,8 +83,10 @@ select
     a.content,
     a.reporter,
     a.createdAt,
-    a.modifiedAt
+    a.modifiedAt,
+    u.email
 from article a 
+inner join user u on u.seq = a.user_seq
 where a.seq = 1
 ;
 
@@ -91,14 +99,16 @@ where a.seq = 1
 ;
 
 select
-	u.id,
 	ac.comment,
-    ac.createdAt
+    ac.createdAt,
+    u.id
 from article_comment ac
 inner join user u on u.seq = ac.user_seq
 inner join article a on a.seq = ac.article_seq
 where a.seq = 1
 ;
+
+-- 관리자 영역
 
 -- 회원 목록
 select
@@ -179,8 +189,6 @@ from gameScore_comment a
 inner join user b on b.seq = a.user_seq
 inner join CC c on c.seq = b.gender
 ;
-
--- 관리자 영역
 
 -- 성별 가입자 수 
 select	
