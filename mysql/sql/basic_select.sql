@@ -1,5 +1,10 @@
 use football;
 
+select * from article_comment;
+
+alter table user
+	drop column team;
+
 select
 	a.seq,
 	a.title,
