@@ -143,8 +143,6 @@ select * from CC;
 -- 관리자 영역
 
 -- Dashboard.성별가입자수
-
--- 남성수
 select
 	u.gender as 성별
 	,count(u.gender)
