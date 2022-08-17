@@ -181,8 +181,8 @@ select
 from 
 	user u
 	inner join teamUser tu on tu.user_seq = u.seq
-where 1=1
-	and tu.defaultNY = 0
+-- where 1=1
+-- 	and tu.defaultNY = 0
 ;
 
 -- 회원상세
@@ -253,6 +253,39 @@ from game_comment gc
 order by 
 	gc.game_seq
     ,gc.createdAt
+;
+
+-- 댓글
+(select 
+	ac.seq
+    ,ac.comment
+    ,ac.createdAt
+    ,ac.modifiedAt
+    ,u.name
+    ,u.id
+    ,u.gender
+from 
+	article_comment ac
+	inner join user u on u.seq = ac.createdBy
+order by
+	ac.article_seq
+	,ac.createdAt)
+union all
+(select
+	gc.seq
+    ,gc.comment
+    ,gc.createdAt
+    ,gc.modifiedAt
+    ,u.name
+    ,u.id
+    ,u.gender
+from game_comment gc
+	inner join user u on u.seq = gc.createdBy
+order by 
+	gc.game_seq
+    ,gc.createdAt)
+order by
+	createdAt
 ;
 
 -- 게임관리
