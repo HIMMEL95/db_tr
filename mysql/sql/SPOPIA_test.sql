@@ -181,8 +181,8 @@ select
 from 
 	user u
 	inner join teamUser tu on tu.user_seq = u.seq
--- where 1=1
--- 	and tu.defaultNY = 0
+where 1=1
+	and tu.defaultNY = 0
 ;
 
 -- 회원상세
