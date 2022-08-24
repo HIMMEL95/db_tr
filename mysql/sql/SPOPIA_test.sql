@@ -1,5 +1,7 @@
 use SPOPIA_test;
 
+select * from game;
+
 -- 공통코드
 select 
 	ccg.seq
@@ -310,3 +312,7 @@ order by
 	g.gameDate
     ,g.gameDuration
 ;
+
+ALTER TABLE user
+	modify column createdBy int
+    ,modify column modifiedBy int;
