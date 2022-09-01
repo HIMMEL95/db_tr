@@ -1,5 +1,6 @@
 use SPOPIA_test;
 
+
 select * from game;
 
 -- 공통코드
@@ -21,7 +22,7 @@ select
 	,cc.ccName as CCName
 from 
 	CCG c
-inner join CC cc on cc.CCG_seq = ccg.seq
+inner join CC cc on cc.CCG_seq = c.seq
 ;
 
 -- 로그인 
@@ -168,6 +169,23 @@ where 1=1
 group by
 	u.gender
 ;
+
+select 
+	cg.*
+    ,count(c.CCG_seq)
+from CCG cg
+inner join CC c on c.CCG_seq = cg.seq
+group by
+	c.CCG_seq
+;
+
+select
+	cg.*
+    ,(select count(c.CCG_seq) from CC c where 1=1 and c.CCG_seq = cg.seq) as count
+from CCG cg
+;
+
+
 
 -- 남여인원수
 select
