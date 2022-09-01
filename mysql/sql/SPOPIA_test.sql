@@ -13,6 +13,17 @@ from
 inner join CC cc on cc.CCG_seq = ccg.seq
 ;
 
+select 
+	c.seq as ccgSeq
+	,c.groupName as groupName
+	,cc.seq as seq
+	,cc.ccOrder as ccOrder
+	,cc.ccName as CCName
+from 
+	CCG c
+inner join CC cc on cc.CCG_seq = ccg.seq
+;
+
 -- 로그인 
 select 
 	u.id
