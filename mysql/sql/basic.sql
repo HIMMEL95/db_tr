@@ -26,7 +26,7 @@ ALTER TABLE member2
 ALTER TABLE member2
 	ADD COLUMN tel varchar(45) AFTER pwd;
 
--- 컬럼 변경
+-- 컬럼 타입 변경
 ALTER TABLE member2 MODIFY COLUMN nickname varchar(100);
 
 -- 컬럼 이름 변경
