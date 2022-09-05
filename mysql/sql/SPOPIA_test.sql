@@ -47,8 +47,8 @@ select
     ,t2.teamName
 from 
 	game g
-	inner join team t1 on t1.seq = g.team_home
-	inner join team t2 on t2.seq = g.team_away 
+	inner join team t1 on t1.teamSeq = g.team_home
+	inner join team t2 on t2.teamSeq = g.team_away 
 order by
 	g.gameDate
 ;
@@ -82,8 +82,8 @@ select
     ,t2.teamName
 from 
 	game g
-	inner join team t1 on t1.seq = g.team_home
-	inner join team t2 on t2.seq = g.team_away
+	inner join team t1 on t1.teamSeq = g.team_home
+	inner join team t2 on t2.teamSeq = g.team_away
 where 1=1
 	and g.seq = 4
 ;
@@ -158,18 +158,6 @@ where 1=1
 
 -- 관리자 영역
 
--- Dashboard.성별가입자수
-select
-	u.gender as 성별
-	,count(u.gender)
-from user u 
-where 1=1
-	and u.gender = 5
-    or u.gender = 6
-group by
-	u.gender
-;
-
 select 
 	cg.*
     ,count(c.CCG_seq)
@@ -185,7 +173,17 @@ select
 from CCG cg
 ;
 
-
+-- Dashboard.성별가입자수
+select
+	u.gender as 성별
+	,count(u.gender)
+from user u 
+where 1=1
+	and u.gender = 5
+    or u.gender = 6
+group by
+	u.gender
+;
 
 -- 남여인원수
 select
@@ -335,8 +333,8 @@ select
     ,t1.teamName
     ,t2.teamName
 from game g
-	inner join team t1 on t1.seq = g.team_home
-	inner join team t2 on t2.seq = g.team_away
+	inner join team t1 on t1.teamSeq = g.team_home
+	inner join team t2 on t2.teamSeq = g.team_away
 order by 
 	g.gameDate
     ,g.gameDuration
