@@ -12,5 +12,6 @@ from codeGroup cg
 where 1=1
 	and cg.ccgSeq > 0
     order by cg.ccgSeq desc, cg.createdAt desc
+limit (
 ;
 

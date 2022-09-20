@@ -226,7 +226,7 @@ select
     ,u.address_detail
     ,u.gender
     ,u.job
-    ,(select t.teamName from team t where 1=1 and t.seq = tu.team_seq) as Team
+    ,(select t.teamName from team t where 1=1 and t.teamSeq = tu.team_seq) as Team
 from 
 	user u
 	inner join teamUser tu on tu.user_seq = u.seq
